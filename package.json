@@ -1,0 +1,27 @@
+{
+  "name": "node-ts-graphql-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "Eddie Naff <eddienaff@gmail.com> (http://eddienaff.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "9.4.7",
+    "@types/ws": "4.0.1",
+    "nodemon": "1.17.2",
+    "ts-node": "5.0.1",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "1.10.0",
+    "typescript": "2.7.2"
+  },
+  "dependencies": {
+    "graphql-yoga": "1.6.1",
+    "pg": "7.4.1",
+    "reflect-metadata": "0.1.12",
+    "typeorm": "0.1.16"
+  }
+}
