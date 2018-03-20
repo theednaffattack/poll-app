@@ -81,10 +81,14 @@ Setup
 
 15. `brew install postgresql` you can initialize or stop the daemon with these commands: `brew services start postgresql` or `brew services stop postgresql`
 
-16. createdb tester2
+16. [create a user](https://getpocket.com/a/read/2050080997#a2-the-createuser-utility) named 'postgres' with a password of 'postgres'
 
-17. psql tester2
+    1. original post [here](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb#a2-the-createuser-utility)
 
-18. \d
+17. createdb tester2
 
-19. ​
+18. psql tester2
+
+19. \d
+
+20. ​

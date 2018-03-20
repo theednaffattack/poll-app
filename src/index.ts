@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
-import { createConnection } from "typeorm";
-import { User } from "./entity/User";
-import { ResolverMap } from "../types/ResolverType";
+import { createConnection, getConnection } from "typeorm";
+import { User } from "./entity/User"; // imported type for typeOrm
+import { ResolverMap } from "./types/ResolverType"; // imported types for typeOrm
 
 const typeDefs = `
   type User {
@@ -11,6 +11,7 @@ const typeDefs = `
     firstName: String!
     lastName: String!
     email: String!
+    confirmed: Boolean!
   }
 
   type Query {
@@ -29,26 +30,39 @@ const typeDefs = `
 const resolvers: ResolverMap = {
   Query: {
     hello: (_: any, { name }: any) => `hello ${name || "World"}`,
-    user: (_, {id}) => User.findOneById(id),
-    users: () => User.find(),
+    user: (_, { id }) => User.findOneById(id),
+    users: () => User.find()
   },
   Mutation: {
-    createUser: (_, args) => User.create(args).save(),
-    updateUser: (_, {id, ...args}) => {
+    createUser: async (_, args) => await User.create(args).save(),
+    updateUser: async (_, { id, ...args }) => {
       try {
-        User.updateById(id, args)
+        await User.updateById(id, args);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      return true
+      return true;
     },
-    deleteUser: (_, { id }) => {
+    deleteUser: async (_, { id }) => {
       try {
-        User.removeById(id)
+        await User.removeById(id);
+
+        // An example of using query builder to have
+        // conditional rules for CRUD operations
+
+        // const deleteQuery = getConnection()
+        //   .createQueryBuilder()
+        //   .delete()
+        //   .from(User)
+        //   .where("id = :id", { id });
+        // if (id === 1) {
+        //   deleteQuery.andWhere("email = :email", { email: "bob@bob.com" });
+        // }
+        // await deleteQuery.execute();
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      return true
+      return true;
     }
   }
 };
@@ -56,21 +70,7 @@ const resolvers: ResolverMap = {
 const server = new GraphQLServer({ typeDefs, resolvers });
 
 createConnection()
-  .then(async connection => {
+  .then(() => {
     server.start(() => console.log("Server is running on localhost:4000"));
-
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
-
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
-
-    console.log("Here you can setup and run express/koa/any other framework.");
   })
   .catch(error => console.log(error));
