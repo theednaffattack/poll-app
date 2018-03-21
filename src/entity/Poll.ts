@@ -4,12 +4,13 @@ import {
   Column,
   OneToMany,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  BaseEntity
 } from "typeorm";
 import { PollOption } from "./PollOption";
 import { User } from "./User";
 @Entity()
-export class Poll {
+export class Poll extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @Column({ type: "text" })

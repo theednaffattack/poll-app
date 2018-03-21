@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 
 import { Poll } from "./Poll";
+import { PollOption } from "./PollOption";
 
 @Entity()
 export class User extends BaseEntity {
@@ -27,4 +28,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Poll, poll => poll.createdBy)
   polls: Poll[];
+
+  @OneToMany(() => PollOption, pollOption => pollOption.createdBy)
+  pollOptions: PollOption[];
 }

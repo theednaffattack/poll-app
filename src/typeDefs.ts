@@ -12,12 +12,14 @@ export const typeDefs = `
     text: String
     votes: [String]
     pollId: Int!
+    createdBy: Int
   }
 
   type Poll {
     id: Int!
     options: [PollOption]
     name: String!
+    createdBy: Int!
   }
 
   type AuthPayload {
@@ -48,13 +50,17 @@ export const typeDefs = `
     errors: [Error!]
     poll: Poll
   }
+  
+  type Subscription {
+    voteHappened: Int
+  }
 
   type Mutation {
     vote(pollOptionId: Int!): VoteResponse
     createPoll(name: String!, options: [String!]!): PollResponse!
-    register(username: String!, email: String!, password: String!): User!
+    register(email: String!, password: String!): User!
     login(email: String!, password: String!): AuthPayload!
-    createUser(firstName: String!, lastName: String!, email: String!, password: String!): User!
+    createUser(username: String!, email: String!, password: String!): User!
     updateUser(firstName: String, lastName: String, email: String): Boolean
     deleteUser(id: Int!): Boolean
   }
