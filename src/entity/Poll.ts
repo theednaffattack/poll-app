@@ -1,12 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+  JoinColumn
+} from "typeorm";
+import { PollOption } from "./PollOption";
+import { User } from "./User";
 @Entity()
-export class User {
+export class Poll {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column() firstName: string;
+  @Column({ type: "text" })
+  name: string;
 
-  @Column() lastName: string;
+  @OneToMany(() => PollOption, pollOption => pollOption.pollId)
+  @JoinColumn()
+  options: PollOption[];
 
-  @Column() isActive: boolean;
+  @ManyToOne(() => User, user => user.polls)
+  createdBy: User;
 }

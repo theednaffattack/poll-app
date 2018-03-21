@@ -3,15 +3,15 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  JoinColumn,
-  OneToOne
+  // JoinColumn,
+  OneToMany
 } from "typeorm";
-import { Profile } from "./Profile";
+
+import { Poll } from "./Poll";
+
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
-
-  @Column() age: number;
 
   @Column({ type: "boolean", default: false })
   confirmed: boolean;
@@ -20,15 +20,11 @@ export class User extends BaseEntity {
   email: string;
 
   @Column({ type: "text" })
-  firstName: string;
+  username: string;
 
   @Column({ type: "text" })
-  lastName: string;
+  password: string;
 
-  @Column({ nullable: true })
-  profileId: number;
-
-  @OneToOne(() => Profile)
-  @JoinColumn()
-  profile: Profile;
+  @OneToMany(() => Poll, poll => poll.createdBy)
+  polls: Poll[];
 }
