@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  JoinColumn,
+  OneToOne
+} from "typeorm";
+import { Profile } from "./Profile";
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
@@ -17,4 +24,11 @@ export class User extends BaseEntity {
 
   @Column({ type: "text" })
   lastName: string;
+
+  @Column({ nullable: true })
+  profileId: number;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 }
