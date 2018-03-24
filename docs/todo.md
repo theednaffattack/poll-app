@@ -6,4 +6,6 @@
    2. multiple users
    3. multiple users w/ pagination
 3. CRUD operations mirroring queries from #2
-4. ​
+4. Add winston via [this guide](https://www.digitalocean.com/community/tutorials/how-to-use-winston-to-log-node-js-applications)
+5. ​
+

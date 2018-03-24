@@ -55,7 +55,7 @@ export const resolvers: ResolverMap = {
 
       await pollOption.save();
 
-      poll.options.push(pollOption.text);
+      poll.options.push(pollOption.id);
 
       await poll.save();
       poll.id;

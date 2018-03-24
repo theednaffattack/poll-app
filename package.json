@@ -4,14 +4,17 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts"
+    "start": "nodemon"
   },
   "keywords": [],
   "author": "Eddie Naff <eddienaff@gmail.com> (http://eddienaff.com/)",
   "license": "MIT",
   "devDependencies": {
+    "@types/dotenv": "4.0.2",
     "@types/node": "9.4.7",
+    "@types/winston": "2.3.8",
     "@types/ws": "4.0.1",
+    "babel-preset-env": "1.6.1",
     "join-monster": "2.0.16",
     "nodemon": "1.17.2",
     "ts-node": "5.0.1",
@@ -20,12 +23,16 @@
     "typescript": "2.7.2"
   },
   "dependencies": {
+    "dotenv": "5.0.1",
+    "fs": "0.0.1-security",
+    "graphql-tools": "2.23.1",
     "graphql-yoga": "1.6.1",
     "join-monster-graphql-tools-adapter": "0.0.3",
     "jsonwebtoken": "8.2.0",
     "lodash": "4.17.5",
     "pg": "7.4.1",
     "reflect-metadata": "0.1.12",
-    "typeorm": "0.1.16"
+    "typeorm": "0.1.16",
+    "winston": "2.4.1"
   }
 }
